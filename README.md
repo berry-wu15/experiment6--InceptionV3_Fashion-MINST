@@ -51,9 +51,10 @@ train_full = datasets.FashionMNIST('data',train=True,download=True,transform=tra
 test_full = datasets.FashionMNIST('data',train=False,download=True,transform=transform)
 ```
 ##
+###### 选取不同比例数据,创建一个固定随机种子的numpy随机数生成器,随机抽取子集索引
 ```
-n = 10 #根据实际选取不同比例数据
-rng = np.random.default_rng(42)     #创建一个固定随机种子的numpy随机数生成器（RNG）
+n = 10 
+rng = np.random.default_rng(42)
 
 # 从训练集全量数据的索引中随机抽取子集索引
 # replace=False：不重复抽样（保证每个索引只选一次，避免同一个样本被多次选中）
