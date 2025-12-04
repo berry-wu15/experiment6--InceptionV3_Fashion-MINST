@@ -85,13 +85,14 @@ optimizer = optim.Adam(model.parameters(),lr=1e-4)
 ###### 设置训练轮数并且展示数据训练过程的前向传播，损失计算，反向传播等流程。
 ###### Training Process
 ```
-epochs=30
+epochs=10
 accs,losses=[],[]
 for epoch in range(epochs):
     for batch_idx,(x,y) in enumerate(trainloader):
         x,y=x.to(device),y.to(device)
         optimizer.zero_grad()
         out = model(x)
+        out = outputs.logits  # 主分类输出
         loss = F.cross_entropy(out,y)
         loss.backward()
         optimizer.step()
@@ -100,11 +101,10 @@ for epoch in range(epochs):
 ```
 with torch.no_grad():
         for batch_idx,(x,y) in enumerate(testloader):
-            x,y=x.to(device),y.to(device)
-            out=model(x)
-            testloss +=F.cross_entropy(out,y).item()
-            pred=out.max(dim=1,keepdim=True)[1]
-            correct +=pred.eq(y.view_as(pred)).sum().item()
+            x,y = x.to(device),y.to(device)
+            out = model(x)
+            total_loss +=F.cross_entropy(out,y).item()
+            correct +=(out.argmax(1)==y).sum().item()
 ```
 
 
