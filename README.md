@@ -3,7 +3,7 @@
 ###### 本实验基于 InceptionV3 架构，对部分 Fashion-MNIST 数据集（转 3 通道、缩至 299×299）进行分类训练测试，验证了多分支卷积模块的特征提取效果。 
 ##
 
-## 1.Exprimental Purpose
+## 1.Experimental Purpose
 ##### 1.Master the basic principles of the convolutional neural network based on the InceptionV3 architecture.
 ##### 2.Conduct classification training and testing on the Fashion-MNIST dataset using the InceptionV3 architecture.
 ##### 3.Learn to load pre-trained weights and analyze the network architecture.
