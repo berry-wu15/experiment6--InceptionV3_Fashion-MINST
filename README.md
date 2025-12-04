@@ -181,7 +181,7 @@ train_loader
 → 所有分支+池化分支拼接 → 输出（保持768通道）
 ```
 ##
-###### InceptionD（二次缩图模块）
+###### InceptionD
 ```
 1个 InceptionD 3(2个核心) 个分支（二次缩图模块）。
 输入（768通道）
@@ -190,7 +190,7 @@ train_loader
 → 2个分支拼接 + 其他池化层 → 输出（1280通道）
 ```
 ##
-######  InceptionE（终极细化模块）
+######  InceptionE
 ```
 1个 InceptionE 4(3个核心) 个分支（细化模块），最后特征提取，不会缩放图像尺寸，获取最细粒度特征）
 输入（1280→2048通道）
@@ -309,3 +309,35 @@ Inception3(
   (dropout): Dropout(p=0.5, inplace=False)
   (fc): Linear(in_features=2048, out_features=10, bias=True)
 ```
+##
+## 3.Experimental Results and Analysis
+#### Training Log(epoch,loss,accuracy)
+下列结果是n=100,训练集600张图片的结果
+```
+epoch0:loss=0.5322,acc=0.7800
+epoch1:loss=0.7331,acc=0.8000
+epoch2:loss=0.7871,acc=0.7500
+epoch3:loss=0.5310,acc=0.8400
+epoch4:loss=0.7671,acc=0.7800
+epoch5:loss=0.8424,acc=0.7800
+epoch6:loss=1.1080,acc=0.7500
+epoch7:loss=0.5214,acc=0.8600
+epoch8:loss=0.6264,acc=0.8100
+epoch9:loss=0.6391,acc=0.7600
+```
+##
+下列结果是n=10,训练集6000张图片的结果
+```
+epoch0:loss=0.3711,acc=0.8680
+epoch1:loss=0.3311,acc=0.8960
+epoch2:loss=0.2609,acc=0.9160
+epoch3:loss=0.2851,acc=0.9030
+epoch4:loss=0.2565,acc=0.9200
+epoch5:loss=0.3223,acc=0.9060
+epoch6:loss=0.2958,acc=0.9200
+epoch7:loss=0.3218,acc=0.9130
+epoch8:loss=0.3321,acc=0.9160
+epoch9:loss=0.4530,acc=0.8990
+```
+##
+##### 实验结果发现，由于预训练模型很大，所以要数据较多才可以训练效果提升，最后在不同数量的数据集下，损失最小为0.2565，同时准确率在92%。
