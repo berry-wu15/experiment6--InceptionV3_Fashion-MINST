@@ -136,14 +136,14 @@ train_loader(随机选取完的训练集格式)
 ```
 ##
 ##### (2)Introduction to the Output of the InceptionV3 Model(InceptionV3的model输出介绍)
-输入图片（299x299x3）
-↓ 浅层卷积+池化（Conv2d_1a,maxpool2）
-↓ InceptionA（Mixed_5b/5c/5d）
-↓ InceptionB（Mixed_6a）
-↓ InceptionC（Mixed_6b/6c/6d/6e）
-↓ InceptionD（Mixed_7a）
-↓ InceptionE（Mixed_7b/7c）
-↓ 池化+全连接 → 输出10分类结果
+> 输入图片（299x299x3）
+> ↓ 浅层卷积+池化（Conv2d_1a,maxpool2）
+> ↓ InceptionA（Mixed_5b/5c/5d）
+> ↓ InceptionB（Mixed_6a）
+> ↓ InceptionC（Mixed_6b/6c/6d/6e）
+> ↓ InceptionD（Mixed_7a）
+> ↓ InceptionE（Mixed_7b/7c）
+> ↓ 池化+全连接 → 输出10分类结果
 ```
 model
 ```
