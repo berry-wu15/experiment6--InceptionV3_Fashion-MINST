@@ -211,10 +211,6 @@ Inception3(
     (conv): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), bias=False)
     (bn): BatchNorm2d(32, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
   )
-  (Conv2d_2a_3x3): BasicConv2d(
-    (conv): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), bias=False)
-    (bn): BatchNorm2d(32, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
-  )
 
   ......
   ......
@@ -222,14 +218,6 @@ Inception3(
   (Mixed_5c): InceptionA(
     (branch1x1): BasicConv2d(
       (conv): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
-      (bn): BatchNorm2d(64, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
-    )
-   ......
-   ......
-  )
-  (Mixed_5d): InceptionA(
-    (branch1x1): BasicConv2d(
-      (conv): Conv2d(288, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
       (bn): BatchNorm2d(64, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
     )
    ......
@@ -251,30 +239,6 @@ Inception3(
     ......
     ......
   )
-  (Mixed_6c): InceptionC(
-    (branch1x1): BasicConv2d(
-      (conv): Conv2d(768, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)
-      (bn): BatchNorm2d(192, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
-    )
-     ......
-     ......
-  )
-  (Mixed_6d): InceptionC(
-    (branch1x1): BasicConv2d(
-      (conv): Conv2d(768, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)
-      (bn): BatchNorm2d(192, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
-    )
-   ......
-   ......
-  )
-  (Mixed_6e): InceptionC(
-    (branch1x1): BasicConv2d(
-      (conv): Conv2d(768, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)
-      (bn): BatchNorm2d(192, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
-    )
-   .......
-   .......
-  )
   (AuxLogits): InceptionAux(
     (conv0): BasicConv2d(
       (conv): Conv2d(768, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
@@ -291,20 +255,6 @@ Inception3(
     ......
     ......
   )
-  (Mixed_7c): InceptionE(
-    (branch1x1): BasicConv2d(
-      (conv): Conv2d(2048, 320, kernel_size=(1, 1), stride=(1, 1), bias=False)
-      (bn): BatchNorm2d(320, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
-    )
-    (branch3x3_1): BasicConv2d(
-      (conv): Conv2d(2048, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
-      (bn): BatchNorm2d(384, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
-    )
-
-  ......
-  ......
-
- )
   (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
   (dropout): Dropout(p=0.5, inplace=False)
   (fc): Linear(in_features=2048, out_features=10, bias=True)
@@ -341,3 +291,14 @@ epoch9:loss=0.4530,acc=0.8990
 ```
 ##
 ##### 实验结果发现，由于预训练模型很大，所以要数据较多才可以训练效果提升，最后在不同数量的数据集下，损失最小为0.2565，同时准确率在92%。
+##
+## 4.Experimental Summary
+#### 4.1.Overall Reflection on the Experiment
+###### 1.)本次实验使用了Fashion-MNIST数据集，与MNIST数据集都是基础分类数据集，输出为10分类任务。
+###### 2.）本次实验虽然没有自己搭建InceptionV3架构，但是通过调用预训练模型，知道了网络图像输入尺寸参数，并且又一次复习了全连接分类层的通道数修改和又一次复现了网络训练和测试的流程。
+###### 3.）通过上网搜索资料，查阅了InceptionV3的基本结构组成，了解了InceptionA，B，C，D，E不同模块的结构和功能。对于Inception系列网络模块基于感受野大小不变的原则有了更深刻的体会。
+##
+#### 4.2.Problems in the Experiment
+###### 本次实验过程中遇到运行崩溃的问题，添加了以下代码成功解决：
+###### 实验中遇到了维度无法对齐的问题，通过在卷积层定义的时候加入填充padding成功解决。实验最后发现只是输出训练数据，所以添加交互式验证模型训练效果。
+##
