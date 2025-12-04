@@ -69,9 +69,18 @@ train_loader = torch.utils.data.DataLoader(Subset(train_full,train_idx),# 从完
 test_loader = torch.utils.data.DataLoader(Subset(test_full,test_idx),
                                            batch_size=batch_size,shuffle=True)
 ```
-
 ##
-#### 2.2.Model Training and Evaluation
+#### 2.2.Construct and adjust the network architecture
+##### Load the pre-trained weights of InceptionV3, and adjust the final fully connected layer to perform a classification task with 10 outputs.
+###### 调用InceptionV3预训练权重，并调整最后一层全连接层做输出为10的分类任务。
+```
+model = models.inception_v3(weights=models.Inception_V3_Weights.DEFAULT)
+model.fc = nn.Linear(model.fc.in_features,10)
+model = model.to(device)
+optimizer = optim.Adam(model.parameters(),lr=1e-4)
+```
+##
+#### 2.3.Model Training and Evaluation
 ##### Configure the number of training epochs and demonstrate the procedure, including the forward pass, loss computation, and backpropagation.
 ###### 设置训练轮数并且展示数据训练过程的前向传播，损失计算，反向传播等流程。
 ###### Training Process
@@ -98,31 +107,4 @@ with torch.no_grad():
             correct +=pred.eq(y.view_as(pred)).sum().item()
 ```
 
-##
-#### 2.3.Feature Map Visualization
-##### Extract and visualize feature maps from convolutional layers.
-###### 提取并绘制卷积层的输出特征图。
-```
-feature1=F.sigmoid(model.conv1(x))
-feature2=F.sigmoid(model.conv2(feature1))
-n=5
-img = x.detach().cpu().numpy()[:n]
-feature_map1=feature1.detach().cpu().numpy()[:n]
-feature_map2=feature2.detach().cpu().numpy()[:n]
 
-fig,ax=plt.subplots(3,n,figsize=(10,10))
-for i in range(n):
-    ax[0,i].imshow(img[i].sum(0),cmap='gray')
-    ax[1,i].imshow(feature_map1[i].sum(0),cmap='gray')
-    ax[2,i].imshow(feature_map2[i].sum(0),cmap='gray')
-plt.show()
-```
-###### 代码中的一些参数解释：
-###### feature_map2=feature2.detach().cpu().numpy()[:n]
-###### x.detach() - 从计算图中分离，不跟踪梯度
-###### .cpu() - 从GPU移到CPU（如果用了GPU）
-###### .numpy() - 转成numpy数组，便于matplotlib显示
-###### [:n] - 只取前n个样本
-###### 结果：原始输入图像的numpy数组
-
-##
